@@ -34,7 +34,7 @@ const NavItem = styled.a`
 const Header: React.FC = () => {
   return (
     <HeaderWrapper>
-      <Logo>jbly</Logo>
+      <Logo>JBLY</Logo>
       <Nav>
         <NavItem href="#">Cart</NavItem>
       </Nav>
