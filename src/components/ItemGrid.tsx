@@ -2,7 +2,7 @@ import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
-import { Button, Desc, Price, Title } from "./styled/item";
+import { Button, Category, Desc, Price, Title } from "./styled/item";
 import { useCart } from "../hooks/useCart";
 import { highlightText } from "../hooks/useInput";
 
@@ -37,7 +37,7 @@ const GridWrap = styled.a`
 const Image = styled.img`
   width: 100%;
   height: 150px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
 `;
 
@@ -56,9 +56,9 @@ const GridItem: React.FC<{
     <GridWrap href={`/item/${item.id}`}>
       <Image src={item.image} alt={item.title} />
       <Price>${item.price}</Price>
+      <Category>{item.category}</Category>
       <Title>{highlightText(item.title, highlightKeyword)}</Title>
       <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
-      <Desc>{item.description}</Desc>
       <Button
         full
         color={isItemInCart ? "#9e9e9e" : ""}
