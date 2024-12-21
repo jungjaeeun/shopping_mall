@@ -14,7 +14,6 @@ const LayoutWrapper = styled.div`
 
 const ContentWrapper = styled.main`
   flex-grow: 1;
-  padding: 16px;
 `;
 
 interface LayoutProps {

@@ -1,74 +1,59 @@
 import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
-import { textEllipsis } from "../styles/GlobalStyle";
+import { theme } from "../styles/theme";
+import { Category, Desc, Price, Title } from "./styled/item";
+import "../styles/common.style.css";
 
 interface IItemListProps {
   data: Item[];
 }
 
-const ListWrapper = styled.div`
-  padding: 20px;
+const ItemListWrapper = styled.div`
+  padding: 20px 0;
 `;
 
-const ListItem = styled.li`
-  padding: 16px;
-  border: 1px solid #ddd;
+const ListWrap = styled.a`
+  padding: 16px 0;
+  border-bottom: 1px solid ${theme.colors.border};
   border-radius: 8px;
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: #fff;
+  background-color: ${theme.colors.secondary};
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
 `;
 
-const Desc = styled.p`
-  font-size: 14px;
-  color: #555;
-`;
-
-const Category = styled.p`
-  font-size: 14px;
-  font-weight: bold;
-  color: #888;
-  ${textEllipsis}
-`;
-
-const Title = styled.h3`
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  ${textEllipsis}
-`;
-
-const Price = styled.p`
-  font-size: 18px;
-  font-weight: bold;
-  color: #007bff;
-`;
+const ListItem: React.FC<{ item: Item }> = ({ item }) => (
+  <ListWrap href={`/item/${item.id}`}>
+    <div className="flexGap6">
+      <Image src={item.image} alt={item.title} />
+      <div>
+        <Price>${item.price}</Price>
+        <Category>{item.category}</Category>
+        <Title>{item.title}</Title>
+      </div>
+    </div>
+    <Desc>{item.description}</Desc>
+  </ListWrap>
+);
 
 const ItemList: React.FC<IItemListProps> = ({ data }) => {
   return (
-    <ListWrapper>
-      <ul>
-        {data.map((item) => (
-          <ListItem key={item.id}>
-            <Image src={item.image} alt={item.title} />
-            <Price>${item.price}</Price>
-            <Category>{item.category}</Category>
-            <Title>{item.title}</Title>
-            <Desc>{item.description}</Desc>
-          </ListItem>
-        ))}
-      </ul>
-    </ListWrapper>
+    <ItemListWrapper>
+      {data.map((item) => (
+        <ListItem key={item.id} item={item} />
+      ))}
+    </ItemListWrapper>
   );
 };
 

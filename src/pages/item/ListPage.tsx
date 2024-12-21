@@ -3,19 +3,21 @@ import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 
 // component
-import { Filter, Input, ItemGrid, ItemList } from "../../components/index";
+import { Filter, Search, ItemGrid, ItemList } from "../../components/index";
 import Layout from "../../components/layout/Layout";
 
 // hook/service/type
-import { Item } from "../../type";
 import { fetchListData } from "../../services/fetchData";
 import useInput from "../../hooks/useInput";
 import useSelect, { makeFieldList } from "../../hooks/useSelect";
+import { Item } from "../../type";
+import { theme } from "../../styles/theme";
 
 const FilterWrap = styled.div`
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: ${theme.colors.secondary};
+  padding: 12px 0;
 `;
 
 const ListPage: React.FC<{}> = () => {
@@ -41,43 +43,26 @@ const ListPage: React.FC<{}> = () => {
   return (
     <Layout>
       <FilterWrap>
-        <div className="searchWrap">
-          <Input
-            placeholder="Input your keyword"
-            type="text"
-            value={keyword}
-            onChange={handleChangeKeyword}
-          />
-        </div>
-        <div className="categoryWrap">
-          <Filter
-            selectedFilter={category}
-            filterOptions={categories}
-            onSelectFilter={handleSelectCategory}
-          />
-        </div>
-        <ModeToggle mode={mode} setMode={handleSetMode} modeList={modes} />
+        <Search
+          placeholder="Input your keyword"
+          type="text"
+          value={keyword}
+          onChange={handleChangeKeyword}
+        />
+        <Filter
+          selectedFilter={category}
+          filterOptions={categories}
+          onSelectFilter={handleSelectCategory}
+        />
+        <Filter
+          style={{ padding: 0 }}
+          selectedFilter={mode}
+          filterOptions={modes}
+          onSelectFilter={handleSetMode}
+        />
       </FilterWrap>
       {mode === "grid" ? <ItemGrid data={data} /> : <ItemList data={data} />}
     </Layout>
-  );
-};
-
-interface IModeToggleProps {
-  modeList: string[];
-  mode: string;
-  setMode: (mode: string) => void;
-}
-
-const ModeToggle: React.FC<IModeToggleProps> = ({ modeList, setMode }) => {
-  return (
-    <div className="modeWrap">
-      {modeList.map((item) => (
-        <button key={item} onClick={() => setMode(item)}>
-          {item}
-        </button>
-      ))}
-    </div>
   );
 };
 

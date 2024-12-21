@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-interface DetailPageProps {}
+interface ItemPageProps {}
 
-const DetailPage: React.FC<DetailPageProps> = () => {
+const ItemPage: React.FC<ItemPageProps> = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -44,4 +44,4 @@ const styles = {
   },
 };
 
-export default DetailPage;
+export default ItemPage;
