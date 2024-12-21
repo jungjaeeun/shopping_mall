@@ -28,7 +28,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeFromCart = useCallback((id: number) => {
     setCart((prevCart) => {
       const newCart = new Set(prevCart);
-      prevCart.delete(id);
+      newCart.delete(id);
       return newCart;
     });
   }, []);
