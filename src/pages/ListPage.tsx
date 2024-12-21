@@ -3,21 +3,26 @@ import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 
 // component
-import { Filter, Search, ItemGrid, ItemList } from "../components/index";
-import Layout from "../components/layout/Layout";
+import {
+  Filter,
+  Search,
+  ItemGrid,
+  ItemList,
+  Layout,
+  Loading,
+} from "../components/index";
 
 // hook/service/type
-import { fetchListData } from "../services/fetchData";
+import { fetchListData } from "../services/fetchListData";
+import { CartProvider } from "../hooks/useCart";
 import useInput from "../hooks/useInput";
 import useSelect, { makeFieldList } from "../hooks/useSelect";
 import { Item } from "../type";
-import { theme } from "../styles/theme";
-import { CartProvider } from "../hooks/useCart";
 
 const FilterWrap = styled.div`
   position: sticky;
   top: 0;
-  background-color: ${theme.colors.secondary};
+  background-color: #fff;
   padding: 12px 0;
 `;
 
@@ -40,10 +45,14 @@ const ListPage: React.FC<{}> = () => {
   const [category, handleSelectCategory] = useSelect(categories, categories[0]);
   const [mode, handleSetMode] = useSelect(modes, modes[0]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error instanceof Error) return <div>Error: {error.message}</div>;
+  if (isLoading)
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
+  if (error instanceof Error) return <Layout>Error: {error.message}</Layout>;
 
-  console.log("Rendering ListPage");
   return (
     <Layout>
       <CartProvider>
