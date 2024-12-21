@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
@@ -21,7 +22,7 @@ const ItemGridWrap = styled.div`
   box-sizing: border-box;
 `;
 
-const GridWrap = styled.a`
+const GridWrap = styled.div`
   border: 1px solid ${theme.colors.border};
   border-radius: 8px;
   padding: 16px;
@@ -53,24 +54,26 @@ const GridItem: React.FC<{
     isItemInCart = false,
     highlightKeyword = "",
   }) => (
-    <GridWrap href={`/item/${item.id}`}>
-      <Image src={item.image} alt={item.title} />
-      <Price>${item.price}</Price>
-      <Category>{item.category}</Category>
-      <Title>{highlightText(item.title, highlightKeyword)}</Title>
-      <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
-      <Button
-        full
-        color={isItemInCart ? "#9e9e9e" : ""}
-        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-          event.stopPropagation();
-          event.preventDefault();
-          handleCartClick();
-        }}
-      >
-        {isItemInCart ? "remove From Cart" : "Add to Cart"}
-      </Button>
-    </GridWrap>
+    <Link to={`/item/${item.id}`} style={{ textDecoration: "none" }}>
+      <GridWrap>
+        <Image src={item.image} alt={item.title} />
+        <Price>${item.price}</Price>
+        <Category>{item.category}</Category>
+        <Title>{highlightText(item.title, highlightKeyword)}</Title>
+        <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
+        <Button
+          full
+          color={isItemInCart ? "#9e9e9e" : ""}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            event.preventDefault();
+            handleCartClick();
+          }}
+        >
+          {isItemInCart ? "remove From Cart" : "Add to Cart"}
+        </Button>
+      </GridWrap>
+    </Link>
   )
 );
 

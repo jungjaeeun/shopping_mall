@@ -33,13 +33,11 @@ const ListPage: React.FC<{}> = () => {
   const {
     data = [] as Item[],
     isLoading,
+    isFetching,
     error,
   } = useQuery({
     queryKey: ["list"],
     queryFn: fetchListData,
-    staleTime: 50 * 60 * 1000, // 50분 동안 캐시된 데이터를 사용
-    refetchOnWindowFocus: false, // 창 포커스 시 새로고침 방지
-    refetchOnReconnect: false, // 네트워크 재연결 시 새로고침 방지
   });
   const categories = useMemo(
     () => ["all", ...makeFieldList<Item, "category">(data, "category")],
@@ -53,6 +51,7 @@ const ListPage: React.FC<{}> = () => {
   const debouncedKeyword = useDebounce(keyword, 300);
   const searchResults: Item[] = useSearch(data, debouncedKeyword, category);
 
+  console.log({ isFetching, isLoading });
   if (isLoading)
     return (
       <Layout>

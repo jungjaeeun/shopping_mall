@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
 import { Category, Desc, Price, Title, Button } from "./styled/item";
-import "../styles/common.style.css";
 import { useCart } from "../hooks/useCart";
 import { highlightText } from "../hooks/useInput";
+
+import "../styles/common.style.css";
 
 interface IItemListProps {
   data: Item[];
@@ -16,7 +18,7 @@ const ItemListWrap = styled.div`
   padding: 20px 0;
 `;
 
-const ListWrap = styled.a`
+const ListWrap = styled.div`
   padding: 16px 0;
   border-bottom: 1px solid ${theme.colors.border};
   border-radius: 8px;
@@ -48,27 +50,29 @@ const ListItem: React.FC<{
     isItemInCart = false,
     highlightKeyword = "",
   }) => (
-    <ListWrap href={`/item/${item.id}`}>
-      <div className="flexGap6">
-        <Image src={item.image} alt={item.title} />
-        <div>
-          <Price>${item.price}</Price>
-          <Category>{item.category}</Category>
-          <Title>{highlightText(item.title, highlightKeyword)}</Title>
+    <Link to={`/item/${item.id}`} style={{ textDecoration: "none" }}>
+      <ListWrap>
+        <div className="flexGap6">
+          <Image src={item.image} alt={item.title} />
+          <div>
+            <Price>${item.price}</Price>
+            <Category>{item.category}</Category>
+            <Title>{highlightText(item.title, highlightKeyword)}</Title>
+          </div>
         </div>
-      </div>
-      <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
-      <Button
-        color={isItemInCart ? "#9e9e9e" : ""}
-        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-          event.stopPropagation();
-          event.preventDefault();
-          handleCartClick();
-        }}
-      >
-        {isItemInCart ? "remove From Cart" : "Add to Cart"}
-      </Button>{" "}
-    </ListWrap>
+        <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
+        <Button
+          color={isItemInCart ? "#9e9e9e" : ""}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            event.preventDefault();
+            handleCartClick();
+          }}
+        >
+          {isItemInCart ? "remove From Cart" : "Add to Cart"}
+        </Button>{" "}
+      </ListWrap>
+    </Link>
   )
 );
 

@@ -38,9 +38,6 @@ const ItemPage: React.FC<{}> = () => {
     queryFn: id
       ? () => fetchItemData(id)
       : () => Promise.reject(new Error("ID is required")),
-    staleTime: 50 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 
   if (isLoading)

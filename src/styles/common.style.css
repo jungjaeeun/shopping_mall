@@ -3,3 +3,7 @@
   gap: 6px;
   align-items: center;
 }
+
+.link-no-underline {
+  text-decoration: none;
+}
