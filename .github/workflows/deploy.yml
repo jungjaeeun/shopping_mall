@@ -38,4 +38,4 @@ jobs:
       # 6. S3에 배포
       - name: Deploy to S3
         run: |
-          aws s3 sync build/ s3://janni --delete  # S3 버킷에 파일 동기화
+          aws s3 sync build/ s3://jbly --delete  # S3 버킷에 파일 동기화
