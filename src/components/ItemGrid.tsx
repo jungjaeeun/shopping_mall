@@ -2,7 +2,7 @@ import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
-import { Button, Category, Desc, Price, Title } from "./item/item";
+import { Button, Category, Desc, Price, Title } from "./styled/item";
 import { useCart } from "../hooks/useCart";
 
 interface IItemGridProps {

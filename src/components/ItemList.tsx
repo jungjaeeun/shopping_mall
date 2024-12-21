@@ -2,7 +2,7 @@ import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
-import { Category, Desc, Price, Title, Button } from "./item/item";
+import { Category, Desc, Price, Title, Button } from "./styled/item";
 import "../styles/common.style.css";
 import { useCart } from "../hooks/useCart";
 

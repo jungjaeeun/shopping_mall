@@ -59,9 +59,9 @@ const Filter: React.FC<FilterProps> = ({
   return (
     <FilterWrap style={style}>
       <FilterList>
-        {filterOptions.map((filterOption, index) => (
+        {filterOptions.map((filterOption) => (
           <FilterItem
-            key={index}
+            key={filterOption}
             isSelected={selectedFilter === filterOption}
             onClick={() => onSelectFilter(filterOption)}
           >
@@ -73,4 +73,4 @@ const Filter: React.FC<FilterProps> = ({
   );
 };
 
-export default Filter;
+export default React.memo(Filter);

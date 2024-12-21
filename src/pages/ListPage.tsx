@@ -43,6 +43,7 @@ const ListPage: React.FC<{}> = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error instanceof Error) return <div>Error: {error.message}</div>;
 
+  console.log("Rendering ListPage");
   return (
     <Layout>
       <CartProvider>

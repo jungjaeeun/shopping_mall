@@ -57,4 +57,4 @@ const Search: React.FC<InputProps> = ({
   );
 };
 
-export default Search;
+export default React.memo(Search);
