@@ -2,7 +2,8 @@ import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
-import { Category, Desc, Price, Title } from "./styled/item";
+import { Button, Category, Desc, Price, Title } from "./item/item";
+import { useCart } from "../hooks/useCart";
 
 interface IItemGridProps {
   data: Item[];
@@ -38,21 +39,49 @@ const Image = styled.img`
   border-radius: 8px;
 `;
 
-const GridItem: React.FC<{ item: Item }> = ({ item }) => (
-  <GridWrap href={`/item/${item.id}`}>
-    <Image src={item.image} alt={item.title} />
-    <Price>${item.price}</Price>
-    <Category>{item.category}</Category>
-    <Title>{item.title}</Title>
-    <Desc>{item.description}</Desc>
-  </GridWrap>
+const GridItem: React.FC<{
+  item: Item;
+  handleCartClick?: () => void;
+  isItemInCart: boolean;
+}> = React.memo(
+  ({ item, handleCartClick = () => {}, isItemInCart = false }) => (
+    <GridWrap href={`/item/${item.id}`}>
+      <Image src={item.image} alt={item.title} />
+      <Price>${item.price}</Price>
+      <Category>{item.category}</Category>
+      <Title>{item.title}</Title>
+      <Desc>{item.description}</Desc>
+      <Button
+        full
+        color={isItemInCart ? "#9e9e9e" : ""}
+        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+          event.stopPropagation();
+          event.preventDefault();
+          handleCartClick();
+        }}
+      >
+        {isItemInCart ? "remove From Cart" : "Add to Cart"}
+      </Button>
+    </GridWrap>
+  )
 );
 
 const ItemGrid: React.FC<IItemGridProps> = ({ data }) => {
+  const { cart, addToCart, removeFromCart } = useCart();
+  const isItemInCart = (itemId: number) => cart.has(itemId);
+
   return (
     <ItemGridWrapper>
       {data.map((item) => (
-        <GridItem key={item.id} item={item} />
+        <GridItem
+          key={item.id}
+          item={item}
+          isItemInCart={isItemInCart(item.id)}
+          handleCartClick={() => {
+            if (isItemInCart(item.id)) removeFromCart(item.id);
+            else addToCart(item.id);
+          }}
+        />
       ))}
     </ItemGridWrapper>
   );

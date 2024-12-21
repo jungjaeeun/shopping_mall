@@ -26,3 +26,21 @@ export const Price = styled.p`
   font-weight: bold;
   color: ${theme.colors.textSecondary};
 `;
+
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "full" && prop !== "color",
+})<{ full?: boolean; color?: string }>`
+  border: none;
+  background-color: ${(prop) => prop.color || theme.colors.primary};
+  color: ${theme.colors.secondary};
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  width: ${(prop) => (prop.full ? "100%" : "160px")};
+`;
+
+Button.defaultProps = {
+  full: false,
+  color: theme.colors.primary,
+};
