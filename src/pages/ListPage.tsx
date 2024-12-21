@@ -80,9 +80,9 @@ const ListPage: React.FC<{}> = () => {
           />
         </FilterWrap>
         {mode === "grid" ? (
-          <ItemGrid data={searchResults} />
+          <ItemGrid data={searchResults} highlightKeyword={debouncedKeyword} />
         ) : (
-          <ItemList data={searchResults} />
+          <ItemList data={searchResults} highlightKeyword={debouncedKeyword} />
         )}
       </CartProvider>
     </Layout>

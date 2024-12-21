@@ -2,11 +2,13 @@ import React from "react";
 import { Item } from "../type";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
-import { Button, Category, Desc, Price, Title } from "./styled/item";
+import { Button, Desc, Price, Title } from "./styled/item";
 import { useCart } from "../hooks/useCart";
+import { highlightText } from "../hooks/useInput";
 
 interface IItemGridProps {
   data: Item[];
+  highlightKeyword?: string;
 }
 
 const ItemGridWrapper = styled.div`
@@ -43,13 +45,19 @@ const GridItem: React.FC<{
   item: Item;
   handleCartClick?: () => void;
   isItemInCart: boolean;
+  highlightKeyword?: string;
 }> = React.memo(
-  ({ item, handleCartClick = () => {}, isItemInCart = false }) => (
+  ({
+    item,
+    handleCartClick = () => {},
+    isItemInCart = false,
+    highlightKeyword = "",
+  }) => (
     <GridWrap href={`/item/${item.id}`}>
       <Image src={item.image} alt={item.title} />
       <Price>${item.price}</Price>
-      <Category>{item.category}</Category>
-      <Title>{item.title}</Title>
+      <Title>{highlightText(item.title, highlightKeyword)}</Title>
+      <Desc>{highlightText(item.description, highlightKeyword)}</Desc>
       <Desc>{item.description}</Desc>
       <Button
         full
@@ -66,10 +74,12 @@ const GridItem: React.FC<{
   )
 );
 
-const ItemGrid: React.FC<IItemGridProps> = ({ data }) => {
+const ItemGrid: React.FC<IItemGridProps> = ({
+  data,
+  highlightKeyword = "",
+}) => {
   const { cart, addToCart, removeFromCart } = useCart();
   const isItemInCart = (itemId: number) => cart.has(itemId);
-
   return (
     <ItemGridWrapper>
       {data.map((item) => (
@@ -77,6 +87,7 @@ const ItemGrid: React.FC<IItemGridProps> = ({ data }) => {
           key={item.id}
           item={item}
           isItemInCart={isItemInCart(item.id)}
+          highlightKeyword={highlightKeyword}
           handleCartClick={() => {
             if (isItemInCart(item.id)) removeFromCart(item.id);
             else addToCart(item.id);
