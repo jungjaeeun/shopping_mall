@@ -16,6 +16,8 @@ import {
 import { fetchListData } from "../services/fetchListData";
 import { CartProvider } from "../hooks/useCart";
 import useInput from "../hooks/useInput";
+import useDebounce from "../hooks/useDebounce";
+import useSearch from "../hooks/useSearch";
 import useSelect, { makeFieldList } from "../hooks/useSelect";
 import { Item } from "../type";
 
@@ -44,6 +46,8 @@ const ListPage: React.FC<{}> = () => {
   const [keyword, handleChangeKeyword] = useInput("");
   const [category, handleSelectCategory] = useSelect(categories, categories[0]);
   const [mode, handleSetMode] = useSelect(modes, modes[0]);
+  const debouncedKeyword = useDebounce(keyword, 300);
+  const searchResults: Item[] = useSearch(data, debouncedKeyword, category);
 
   if (isLoading)
     return (
@@ -75,7 +79,11 @@ const ListPage: React.FC<{}> = () => {
             onSelectFilter={handleSetMode}
           />
         </FilterWrap>
-        {mode === "grid" ? <ItemGrid data={data} /> : <ItemList data={data} />}
+        {mode === "grid" ? (
+          <ItemGrid data={searchResults} />
+        ) : (
+          <ItemList data={searchResults} />
+        )}
       </CartProvider>
     </Layout>
   );
