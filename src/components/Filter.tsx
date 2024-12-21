@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
 
-interface FilterProps {
+interface IFilterProps {
   filterOptions: string[];
   selectedFilter: string;
   onSelectFilter: (filter: string) => void;
@@ -50,7 +50,7 @@ const FilterItem = styled.li.withConfig({
   `}
 `;
 
-const Filter: React.FC<FilterProps> = ({
+const Filter: React.FC<IFilterProps> = ({
   filterOptions,
   selectedFilter,
   onSelectFilter,

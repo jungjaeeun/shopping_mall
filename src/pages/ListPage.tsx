@@ -18,8 +18,9 @@ import { CartProvider } from "../hooks/useCart";
 import useInput from "../hooks/useInput";
 import useDebounce from "../hooks/useDebounce";
 import useSearch from "../hooks/useSearch";
-import useSelect, { makeFieldList } from "../hooks/useSelect";
+import useSelect from "../hooks/useSelect";
 import { Item } from "../type";
+import { makeFieldList } from "../utils/common";
 
 const FilterWrap = styled.div`
   position: sticky;
@@ -34,13 +35,16 @@ const ListPage: React.FC<{}> = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["dataKey"],
+    queryKey: ["list"],
     queryFn: fetchListData,
     staleTime: 50 * 60 * 1000, // 50분 동안 캐시된 데이터를 사용
     refetchOnWindowFocus: false, // 창 포커스 시 새로고침 방지
     refetchOnReconnect: false, // 네트워크 재연결 시 새로고침 방지
   });
-  const categories = makeFieldList<Item, "category">(data, "category");
+  const categories = useMemo(
+    () => ["all", ...makeFieldList<Item, "category">(data, "category")],
+    [data]
+  );
   const modes = useMemo(() => ["grid", "list"], []);
 
   const [keyword, handleChangeKeyword] = useInput("");

@@ -12,7 +12,7 @@ interface IItemListProps {
   highlightKeyword?: string;
 }
 
-const ItemListWrapper = styled.div`
+const ItemListWrap = styled.div`
   padding: 20px 0;
 `;
 
@@ -80,7 +80,7 @@ const ItemList: React.FC<IItemListProps> = ({
   const isItemInCart = (itemId: number) => cart.has(itemId);
 
   return (
-    <ItemListWrapper>
+    <ItemListWrap>
       {data.map((item) => (
         <ListItem
           key={item.id}
@@ -93,7 +93,7 @@ const ItemList: React.FC<IItemListProps> = ({
           }}
         />
       ))}
-    </ItemListWrapper>
+    </ItemListWrap>
   );
 };
 

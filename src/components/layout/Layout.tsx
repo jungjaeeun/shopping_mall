@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import styled from "styled-components";
 import { media, sizes } from "../../styles/media";
 
-const LayoutWrapper = styled.div`
+const LayoutWrap = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -12,7 +12,7 @@ const LayoutWrapper = styled.div`
   margin: auto;
 `;
 
-const ContentWrapper = styled.main`
+const ContentWrap = styled.main`
   flex-grow: 1;
   ${media.tablet`
     padding: 0 12px;
@@ -25,11 +25,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <LayoutWrapper>
+    <LayoutWrap>
       <Header />
-      <ContentWrapper>{children}</ContentWrapper>
+      <ContentWrap>{children}</ContentWrap>
       <Footer />
-    </LayoutWrapper>
+    </LayoutWrap>
   );
 };
 

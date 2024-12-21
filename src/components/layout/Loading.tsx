@@ -9,7 +9,7 @@ const spin = keyframes`
   }
 `;
 
-const LoaderWrapper = styled.div`
+const LoaderWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,9 +28,9 @@ const Spinner = styled.div`
 
 const Loading: React.FC<{}> = () => {
   return (
-    <LoaderWrapper>
+    <LoaderWrap>
       <Spinner />
-    </LoaderWrapper>
+    </LoaderWrap>
   );
 };
 

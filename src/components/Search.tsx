@@ -2,7 +2,7 @@ import React, { ChangeEvent, FocusEvent, InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { theme } from "../styles/theme";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface ISearchProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
@@ -37,7 +37,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const Search: React.FC<InputProps> = ({
+const Search: React.FC<ISearchProps> = ({
   value,
   onChange,
   onBlur,

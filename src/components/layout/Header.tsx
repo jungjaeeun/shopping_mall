@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
 
-const HeaderWrapper = styled.header`
+const HeaderWrap = styled.header`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.secondary};
   padding: ${theme.spacing.medium};
@@ -18,9 +18,9 @@ const Logo = styled.div`
 
 const Header: React.FC = () => {
   return (
-    <HeaderWrapper>
+    <HeaderWrap>
       <Logo>JBLY</Logo>
-    </HeaderWrapper>
+    </HeaderWrap>
   );
 };
 

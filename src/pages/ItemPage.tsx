@@ -14,7 +14,7 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
-const ItemDetailsWrapper = styled.div`
+const ItemDetailsWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -34,7 +34,7 @@ const ItemPage: React.FC<{}> = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["dataKey", id],
+    queryKey: ["item", id],
     queryFn: id
       ? () => fetchItemData(id)
       : () => Promise.reject(new Error("ID is required")),
@@ -54,7 +54,7 @@ const ItemPage: React.FC<{}> = () => {
 
   return (
     <Layout>
-      <ItemDetailsWrapper>
+      <ItemDetailsWrap>
         <Image src={data.image} alt={data.title} />
         <ItemInfo>
           <Title>{data.title}</Title>
@@ -62,7 +62,7 @@ const ItemPage: React.FC<{}> = () => {
           <Category>{data.category}</Category>
           <Desc>{data.description}</Desc>
         </ItemInfo>
-      </ItemDetailsWrapper>
+      </ItemDetailsWrap>
     </Layout>
   );
 };

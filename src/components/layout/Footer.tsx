@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
 
-const FooterWrapper = styled.footer`
+const FooterWrap = styled.footer`
   background-color: ${theme.colors.secondary};
   color: ${theme.colors.primary};
   padding: ${theme.spacing.medium};
@@ -15,9 +15,9 @@ const FooterWrapper = styled.footer`
 
 const Footer: React.FC = () => {
   return (
-    <FooterWrapper>
+    <FooterWrap>
       <p>© 2024 Abley, All Rights Reserved.</p>
-    </FooterWrapper>
+    </FooterWrap>
   );
 };
 

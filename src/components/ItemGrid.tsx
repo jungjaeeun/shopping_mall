@@ -11,7 +11,7 @@ interface IItemGridProps {
   highlightKeyword?: string;
 }
 
-const ItemGridWrapper = styled.div`
+const ItemGridWrap = styled.div`
   padding: 20px 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -81,7 +81,7 @@ const ItemGrid: React.FC<IItemGridProps> = ({
   const { cart, addToCart, removeFromCart } = useCart();
   const isItemInCart = (itemId: number) => cart.has(itemId);
   return (
-    <ItemGridWrapper>
+    <ItemGridWrap>
       {data.map((item) => (
         <GridItem
           key={item.id}
@@ -94,7 +94,7 @@ const ItemGrid: React.FC<IItemGridProps> = ({
           }}
         />
       ))}
-    </ItemGridWrapper>
+    </ItemGridWrap>
   );
 };
 
