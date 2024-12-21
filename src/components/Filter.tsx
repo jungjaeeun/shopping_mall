@@ -25,26 +25,29 @@ const FilterList = styled.ul`
   }
 `;
 
-const FilterItem = styled.li<{ isSelected: boolean }>`
+const FilterItem = styled.li.withConfig({
+  shouldForwardProp: (prop) => prop !== "isSelected",
+})<{ isSelected: boolean }>`
   padding: ${theme.spacing.small} ${theme.spacing.medium};
   font-size: 12px;
   border-radius: 4px;
   font-weight: 500;
-  border: ${({ isSelected }) =>
-    isSelected ? "transparent" : `1px solid ${theme.colors.border}`};
   cursor: pointer;
   white-space: nowrap;
-  background-color: ${({ isSelected }) =>
-    isSelected ? theme.colors.primary : "transparent"};
-  color: ${({ isSelected }) =>
-    isSelected ? theme.colors.secondary : theme.colors.textPrimary};
 
-  &:hover {
-    background-color: ${({ isSelected }) =>
-      isSelected ? theme.colors.primary : theme.colors.accent};
-    color: ${({ isSelected }) =>
-      isSelected ? theme.colors.secondary : theme.colors.textSecondary};
-  }
+  ${({ isSelected }) => `
+    border: ${isSelected ? "transparent" : `1px solid ${theme.colors.border}`};
+    background-color: ${isSelected ? theme.colors.primary : "transparent"};
+    color: ${isSelected ? theme.colors.secondary : theme.colors.textPrimary};
+    &:hover {
+      background-color: ${
+        isSelected ? theme.colors.primary : theme.colors.accent
+      };
+      color: ${
+        isSelected ? theme.colors.secondary : theme.colors.textSecondary
+      };
+    }
+  `}
 `;
 
 const Filter: React.FC<FilterProps> = ({

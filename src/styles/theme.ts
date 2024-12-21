@@ -17,11 +17,6 @@ export const theme = {
     medium: "16px",
     large: "32px",
   },
-  breakpoints: {
-    mobile: "480px",
-    tablet: "768px",
-    desktop: "1024px",
-  },
 };
 
 export type ThemeType = typeof theme;
