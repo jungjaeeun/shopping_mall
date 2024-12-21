@@ -3,19 +3,24 @@ import { Item } from "../type";
 import styled from "styled-components";
 import { textEllipsis } from "../styles/GlobalStyle";
 
-interface IItemListProps {
+interface IItemGridProps {
   data: Item[];
 }
 
-const ListWrapper = styled.div`
-  padding: 20px;
+const ItemGridWrapper = styled.div`
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 `;
 
-const ListItem = styled.li`
-  padding: 16px;
+const GridWrap = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin-bottom: 10px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -54,22 +59,24 @@ const Price = styled.p`
   color: #007bff;
 `;
 
-const ItemList: React.FC<IItemListProps> = ({ data }) => {
+const GridItem: React.FC<{ item: Item }> = ({ item }) => (
+  <GridWrap>
+    <Image src={item.image} alt={item.title} />
+    <Price>${item.price}</Price>
+    <Category>{item.category}</Category>
+    <Title>{item.title}</Title>
+    <Desc>{item.description}</Desc>
+  </GridWrap>
+);
+
+const ItemGrid: React.FC<IItemGridProps> = ({ data }) => {
   return (
-    <ListWrapper>
-      <ul>
-        {data.map((item) => (
-          <ListItem key={item.id}>
-            <Image src={item.image} alt={item.title} />
-            <Price>${item.price}</Price>
-            <Category>{item.category}</Category>
-            <Title>{item.title}</Title>
-            <Desc>{item.description}</Desc>
-          </ListItem>
-        ))}
-      </ul>
-    </ListWrapper>
+    <ItemGridWrapper>
+      {data.map((item) => (
+        <GridItem key={item.id} item={item} />
+      ))}
+    </ItemGridWrapper>
   );
 };
 
-export default ItemList;
+export default ItemGrid;

@@ -9,4 +9,5 @@ export interface Item {
     rate: number;
     count: number;
   };
+  cart?: boolean;
 }

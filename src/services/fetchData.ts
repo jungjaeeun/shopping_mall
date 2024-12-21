@@ -1,4 +1,4 @@
-export const fetchData = async () => {
+export const fetchListData = async () => {
   const response = await fetch("https://fakestoreapi.com/products");
 
   if (!response.ok) {

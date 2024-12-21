@@ -2,12 +2,13 @@ import React, { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
+import { theme } from "../../styles/theme";
 
 const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 620px;
+  max-width: ${theme.breakpoints.tablet};
   margin: auto;
 `;
 
